@@ -1,11 +1,18 @@
 import debounce from 'lodash.debounce';
 import { Notify } from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.5.min.css';
-import fetchCountries from '../js/fetchCountries';
-import refs from '../js/get-refs';
+import fetchCountries from './js/fetchCountries';
+// import refs from './js/get-refs';
 import './css/styles.css';
+// import countryCardTpl from './templates/country-card.hbs'
 
 const DEBOUNCE_DELAY = 300;
+
+refs = {
+    inputCountry: document.querySelector('#search-box'),
+    countryList: document.querySelector('.country-list'),
+    countryInfo: document.querySelector('.country-info'),
+};
 
 const { inputCountry, countryList, countryInfo } = refs;
 
@@ -32,7 +39,7 @@ function renderCountryCard(response) {
             <img class="country-item__flag" src="${country.flags.svg}" width="50px" alt="${country.name.official}">
             <p class='card-item__name'>${country.name.official}</p>
         </li>`).join('');
-
+    
     const countryCardMarkup = response.map(country =>
         `<div class='country-card'>
             <img class='country-item__flag' src="${country.flags.svg}" width="50px" alt="${country.name.official}"/>
@@ -66,7 +73,7 @@ function renderCountryCard(response) {
         onFetchToMuchCountries();
         return;
     };
-
+    
     if (quantityCountry >= 2) {
         countryList.innerHTML = countryListMarkup;
     } else {
